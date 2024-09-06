@@ -1,11 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
 
-public class NodeInfo
+public class NodeModel : MonoBehaviour
 {
     private int startPoint;
     private int endPoint;
+
+    private int currentPoint = 0;
+
+
 }
