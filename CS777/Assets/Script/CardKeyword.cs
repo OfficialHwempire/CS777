@@ -8,5 +8,6 @@ public enum CardKeyword
     Echo,
     Cancel,
     Head,
-    Finish
+    Finish,
+    Break
 }

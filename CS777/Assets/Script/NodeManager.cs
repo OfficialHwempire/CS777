@@ -6,6 +6,28 @@ public class NodeManager : MonoBehaviour
 {
     private List<NodeInfo> nodLis;
 
+    public static NodeManager instance;
+
+    public static NodeManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<NodeManager>();
+                if (instance == null)
+                {
+                    GameObject go = new GameObject();
+                    go.name = typeof(NodeManager).Name;
+                    instance = go.AddComponent<NodeManager>();
+                    DontDestroyOnLoad(go);
+                }
+            }
+            return instance;
+        }
+    }
+
+
     public void nodeLisInitialize(List<NodeInfo> info)
     {
         nodLis = info;
@@ -21,5 +43,6 @@ public class NodeManager : MonoBehaviour
             }
         }
     }
+    public void CreateNode(int index) { }
 
 }
