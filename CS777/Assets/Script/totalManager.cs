@@ -24,7 +24,7 @@ public class totalManager : MonoBehaviour
         GameObject cardObject = new GameObject("Card" + index);
         cardObject.AddComponent<SpriteRenderer>().sprite = cardSprites[card.CardSpirteIndex];
         Vector2 cardPosition = new Vector2(100 * index, 0);
-        NodeManager.nodeManager.CreateNode(index);// createnode 짜야함
+        NodeManager.instance.CreateNode(index, card);// createnode 짜야함
 
     }
 

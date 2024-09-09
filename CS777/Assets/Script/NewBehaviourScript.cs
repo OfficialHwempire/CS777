@@ -17,6 +17,8 @@ public class Card
 
     public int CardSpirteIndex => cardSpirteIndex;
 
+    public int CardNodeIndex => cardNodeIndex;
+
     public Card(CardKeyword _cardKeyword, int _damage, int _cardNodeIndex, int _cardSpirteIndex)
     {
         damage = _damage;

@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NodeManager : MonoBehaviour
 {
-    private List<NodeInfo> nodLis;
 
+    public List<GameObject> nodeTuneprefabs = new List<GameObject>();
+    public List<GameObject> nodeTuneObjects;
+    [SerializeField]
+    private List<Sprite> nodeSprites = new List<Sprite>();
+    private float nodCurrentCount = 0;
+    private float speed = 0.5f;
     public static NodeManager instance;
-
+    public Vector2 cardStartPosition;
+    public Vector2 cardSpacing;
     public static NodeManager Instance
     {
         get
@@ -26,23 +33,58 @@ public class NodeManager : MonoBehaviour
             return instance;
         }
     }
-
-
-    public void nodeLisInitialize(List<NodeInfo> info)
+    void Awake()
     {
-        nodLis = info;
-    }
-
-    public void nodeClickInfo(int index, bool isSuccess, List<CardKeyword> cardKeyWordLis)
-    {
-        if (!isSuccess)
+        if (instance == null)
         {
-            foreach (var element in nodLis)
-            {
-
-            }
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
-    public void CreateNode(int index) { }
+
+
+
+    public void CreateNode(int index, Card card)
+    {
+
+        GameObject nodeObject = new GameObject("Node" + index);
+
+        nodeObject.AddComponent<SpriteRenderer>().sprite = nodeSprites[card.CardSpirteIndex];
+        Vector2 nodePosition = cardStartPosition + index * cardSpacing;
+        nodeObject.transform.localPosition = nodePosition;
+
+        GameObject nodeTuneObject = Instantiate(nodeTuneprefabs[card.CardNodeIndex], nodeObject.transform);
+        nodeTuneObjects.Add(nodeTuneObject);
+        nodeTuneObject.transform.localPosition = new Vector2(0, -5);
+
+
+    }
+    public void nodeMove()
+    {
+        if (nodCurrentCount < 0)
+        {
+            nodCurrentCount = 0;
+        }
+        if (nodCurrentCount > 100)
+        {
+            nodCurrentCount = 100;
+        }
+        else if (nodCurrentCount < 100)
+        {
+            nodCurrentCount += speed * Time.deltaTime;
+        }
+        foreach (var element in nodeTuneObjects)
+        {
+            element.transform.localPosition = new Vector2(nodCurrentCount * speed * Time.time, -5);
+        }
+
+    }
+    void Update()
+    {
+        nodeMove();
+    }
 
 }
