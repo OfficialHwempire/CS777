@@ -5,6 +5,26 @@ using UnityEngine;
 public class DeckManager : MonoBehaviour
 {
     public static DeckManager deckManager;
+
+    public static DeckManager _deckManager
+    {
+        get
+        {
+            if (deckManager == null)
+            {
+                deckManager = FindObjectOfType<DeckManager>();
+                if (deckManager == null)
+                {
+                    GameObject go = new GameObject();
+                    go.name = typeof(DeckManager).Name;
+                    deckManager = go.AddComponent<DeckManager>();
+                    DontDestroyOnLoad(go);
+                }
+            }
+            return deckManager;
+        }
+    }
+
     public List<Card> deck = new List<Card>();
     public List<Card> OriginalDeck = new List<Card>();
 

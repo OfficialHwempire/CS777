@@ -8,6 +8,8 @@ public class NodeManager : MonoBehaviour
 
     public List<GameObject> nodeTuneprefabs = new List<GameObject>();
     public List<GameObject> nodeTuneObjects;
+
+    public List<NodeInfo> nodeInfos = new List<NodeInfo>();
     [SerializeField]
     private List<Sprite> nodeSprites = new List<Sprite>();
     private float nodCurrentCount = 0;
@@ -53,6 +55,7 @@ public class NodeManager : MonoBehaviour
         GameObject nodeObject = new GameObject("Node" + index);
 
         nodeObject.AddComponent<SpriteRenderer>().sprite = nodeSprites[card.CardSpirteIndex];
+        nodeInfos.Add(new NodeInfo(card.CardNodeIndex));
         Vector2 nodePosition = cardStartPosition + index * cardSpacing;
         nodeObject.transform.localPosition = nodePosition;
 
@@ -68,11 +71,11 @@ public class NodeManager : MonoBehaviour
         {
             nodCurrentCount = 0;
         }
-        if (nodCurrentCount > 100)
+        else if (nodCurrentCount > 100)
         {
             nodCurrentCount = 100;
         }
-        else if (nodCurrentCount < 100)
+        else if (nodCurrentCount <= 100)
         {
             nodCurrentCount += speed * Time.deltaTime;
         }
