@@ -44,4 +44,25 @@ public class PlayerStatsManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void healthChange(int value)
+    {
+        playerHealth += value;
+    }
+
+    public void weakChange(bool weak)
+    {
+        isWeak = weak;
+    }
+
+    public void vulnerableChange(bool vulnerable)
+    {
+        isVulnerable = vulnerable;
+    }
+
+    public void breakPointChange(int value)
+    {
+        breakPoint += value;
+    }
+
 }

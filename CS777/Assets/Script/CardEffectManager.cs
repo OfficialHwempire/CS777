@@ -35,6 +35,6 @@ public class CardEffectManager : MonoBehaviour
         }
     }
 
-
+    public void cardEffectReading(Card card) { }
 
 }
