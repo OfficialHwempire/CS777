@@ -16,6 +16,8 @@ public class NodeModel : MonoBehaviour
     public GameObject nodeMarker;
     private GameObject emptyImage;
     public List<GameObject> nodeBackGround;
+
+
     public void nodeModel(int startP, int endP, int index)
     {
         startPoint = startP;

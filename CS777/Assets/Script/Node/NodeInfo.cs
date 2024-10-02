@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class NodeInfo
@@ -10,7 +11,12 @@ public class NodeInfo
     private int startPoint;
     private int endPoint;
 
-    bool Isbreak = false;
+    public int StartPoint => startPoint;
+    public int EndPoint => endPoint;
+
+    public bool isActive = true;
+
+
 
     public NodeInfo(int startPoint, int endPoint)
     {
@@ -30,12 +36,5 @@ public class NodeInfo
         };
     }
 
-    public void breakTrue()
-    {
-        Isbreak = true;
-    }
-    public void breakFalse()
-    {
-        Isbreak = false;
-    }
+
 }

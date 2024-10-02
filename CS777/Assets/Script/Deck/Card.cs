@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -9,7 +10,7 @@ using UnityEngine;
 public class Card
 {
 
-    private CardKeyword cardKeyword;
+    private CardEffect cardEffect;
     private int damage;
     private int cardNodeIndex;
 
@@ -19,10 +20,12 @@ public class Card
 
     public int CardNodeIndex => cardNodeIndex;
 
-    public Card(CardKeyword _cardKeyword, int _damage, int _cardNodeIndex, int _cardSpirteIndex)
+    public CardEffect CardEffect => this.cardEffect;
+
+    public Card(CardEffect _cardEffect, int _damage, int _cardNodeIndex, int _cardSpirteIndex)
     {
         damage = _damage;
-        cardKeyword = _cardKeyword;
+        cardEffect = _cardEffect;
         cardNodeIndex = _cardNodeIndex;
         cardSpirteIndex = _cardSpirteIndex;
 

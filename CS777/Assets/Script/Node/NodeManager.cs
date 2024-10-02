@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class NodeManager : MonoBehaviour
@@ -17,6 +20,9 @@ public class NodeManager : MonoBehaviour
     public static NodeManager instance;
     public Vector2 cardStartPosition;
     public Vector2 cardSpacing;
+    public int nodeBreakPoint = 0;
+    public bool isBreak => nodeBreakPoint > 0;
+
     public static NodeManager Instance
     {
         get
@@ -67,6 +73,7 @@ public class NodeManager : MonoBehaviour
     }
     public void nodeMove()
     {
+
         if (nodCurrentCount < 0)
         {
             nodCurrentCount = 0;
@@ -79,15 +86,73 @@ public class NodeManager : MonoBehaviour
         {
             nodCurrentCount += speed * Time.deltaTime;
         }
-        foreach (var element in nodeTuneObjects)
-        {
-            element.transform.localPosition = new Vector2(nodCurrentCount * speed * Time.time, -5);
-        }
+        Vector2 currentNodePostion = new Vector2(nodCurrentCount, 0);
+        nodePositionChange(currentNodePostion);
+        // foreach (var element in nodeTuneObjects)
+        // {
+        //     element.transform.localPosition = new Vector2(nodCurrentCount * speed * Time.time, -5);
+        // }
 
     }
+    void start()
+    {
+        nodCurrentCount = 0;
+
+    }
+
     void Update()
     {
         nodeMove();
     }
+
+    public void nodePositionChange(Vector2 position)
+    {
+        foreach (var element in nodeTuneObjects)
+        {
+            element.transform.localPosition = position;
+        }
+    }
+
+    public void SuccessNode(int cardIndex)
+    {
+        if (isBreak)
+        {
+            UnityEngine.Debug.Log("Break is active");
+            nodCurrentCount = 0;
+            nodeBreakPoint--;
+
+        }
+        UnityEngine.Debug.Log("Success, cardIndex is " + cardIndex);
+
+        nodCurrentCount = 0;
+        nodeInfos[cardIndex].isActive = false;
+
+    }
+    public void FailNode(int cardIndex)
+    {
+        UnityEngine.Debug.Log("Fail, cardIndex is " + cardIndex);
+        nodCurrentCount = 0;
+
+    }
+
+    public bool isNodeInputTrue(int cardIndex)
+    {
+        if (isBreak) return true;
+        return (nodCurrentCount < (float)nodeInfos[cardIndex].EndPoint && nodCurrentCount > (float)nodeInfos[cardIndex].StartPoint);
+    }
+
+    public void breakTimeExecution()
+    {
+        nodeBreakPoint++;
+        nodCurrentCount = 0;
+
+        foreach (var element in nodeTuneObjects)
+        {
+            element.GetComponent<SpriteRenderer>().sprite = nodeSprites[6];//break sprite would be 6
+
+        }
+    }
+
+
 
 }
