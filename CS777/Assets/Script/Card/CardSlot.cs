@@ -11,6 +11,10 @@ public class CardSlot :MonoBehaviour
 
     private GameObject nodeShownObject;
 
+    
+
+    public List<Sprite> NodeSprites;
+
 
    
     
@@ -18,11 +22,34 @@ public class CardSlot :MonoBehaviour
 
     private Card card;
 
+    public Card Card => card;
+    
+
     public void SetCard(Card card)
     {
         this.card = card;
-        this.gameObject.GetComponent<SpriteRenderer>().sprite = card.CardSprite;   
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = card.CardSprite; 
+        this.nodeShownObject.GetComponent<SpriteRenderer>().sprite = NodeSprites[card.NodeType];  
         
+    }
+
+    public void resetCard()
+    {
+        if(card != null)
+        {
+            card = null;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = null;
+            this.nodeShownObject.GetComponent<SpriteRenderer>().sprite = null;
+        }
+    }
+
+    public void SetBreak()
+    {
+        this.nodeShownObject.GetComponent<SpriteRenderer>().sprite = NodeSprites[4];
+    }
+    public void reSetBreak()
+    {
+        this.nodeShownObject.GetComponent<SpriteRenderer>().sprite = NodeSprites[card.NodeType];
     }
 
 

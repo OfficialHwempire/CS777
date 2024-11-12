@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PendulumMoveController : MonoBehaviour
@@ -10,12 +11,15 @@ public class PendulumMoveController : MonoBehaviour
     [SerializeField]
     private float backgroundWidth = 20f;
 
+    private float current_count =0;
+
     private Vector3 originPos = new Vector3(0,0,0);
     
 
     // Start is called before the first frame update
 
 private GameObject pendulum ;
+
 
 void Start(){
     pendulum = this.gameObject;
@@ -26,6 +30,8 @@ void Update(){
 }
 void move(){
      pendulum.transform.Translate(Vector3.right * nodeSpeed * Time.deltaTime*nodeDirection);
+    NodeManager.Instance.current_count = ((pendulum.transform.position.x-originPos.x)/backgroundWidth)*NodeManager.Instance.max_count;
+     
 if(pendulum.transform.position.x - originPos.x >= backgroundWidth)
 {
     nodeDirection =-1;

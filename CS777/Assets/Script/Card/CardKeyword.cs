@@ -8,4 +8,8 @@ public enum CardKeyword
     Attack,
     Shield,
     Echo,
+
+    Head,
+    Tail
+
 } 
