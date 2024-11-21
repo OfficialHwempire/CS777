@@ -7,11 +7,16 @@ using UnityEngine.Windows;
 public class InGameInputManager 
 {
     // Start is called before the first frame update
+    public PendulumMoveController PendulumMoveController { get => pendulumMoveController; set => pendulumMoveController = value; }
+    private PendulumMoveController pendulumMoveController;
     cardEffectCalculator cardKeywordCalculator = new cardEffectCalculator();
+    playerTotalCalculator playerTotalCalculator = new playerTotalCalculator();
 
    private static InGameInputManager instance;
 
    private int totalBreakCount;
+
+   
 
    
 
@@ -36,9 +41,10 @@ public class InGameInputManager
    public void getInput(string inputString){
     int index = cardInputDic[inputString];
     if(!checkSuccess(index)){
-      DeckManager.Instance.CardToGrave(0);
-
+  
+      return;
     }
+    
 
 
 
@@ -46,6 +52,11 @@ public class InGameInputManager
 
     
    
+   }
+
+   public void IfFail(int index){
+    pendulumMoveController.resetNode();
+    Debug.Log("Fail:    "  + index);
    }
    public void breakChange(){
       foreach(var element in DeckManager.Instance.cardSlots){

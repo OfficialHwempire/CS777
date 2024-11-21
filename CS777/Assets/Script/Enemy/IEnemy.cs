@@ -2,20 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPlayer
+public interface IEnemy 
 {
-    // Start is callinted before the first frame update
+    // Start is called before the first frame update
     int maxHp{get; }
     int power{get ; }
 
-    int Robust{get;}
-
     int currentHp{get; }
-    int currentPower{get; }
     int shield{get; }
+
+    int CurrentPower{get;}
     int weakCount{get; }
     int vulnerableCount {get; }
-    int CurrentRobust{get;}    
     
     
     void HpChange(int change);
@@ -24,7 +22,10 @@ public interface IPlayer
     void weakCountChange(int change);
     void vulnerableCountChange(int change);
 
-    void initialize();
-    void RobustChange(int change);    
-  
+    List<EnemyPattern> EnemyPatternList{get;}
+
+    void initialize(){
+
+    }
+
 }

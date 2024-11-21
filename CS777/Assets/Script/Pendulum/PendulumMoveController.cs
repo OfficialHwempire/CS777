@@ -44,7 +44,11 @@ else if(pendulum.transform.position.x-originPos.x <=0)
    
 }
 
-void resetNode(){}
+public void resetNode(){
+    pendulum.transform.position = originPos;
+    nodeDirection = 1;
+    NodeManager.Instance.current_count = 0;
+}
 
  
 }
