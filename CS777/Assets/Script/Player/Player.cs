@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : IPlayer
+public class Player : MonoBehaviour,IPlayer
 {
     // Start is called before the first frame update
   public int maxHp{get; private set;}
@@ -19,7 +19,18 @@ public class Player : IPlayer
 
   public int CurrentRobust{get; private set;}
 
-
+  public void Start()
+  {
+      maxHp = 100;
+      power = 0;
+      shield = 0;
+      weakCount = 0;
+      vulnerableCount = 0;
+      currentHp = maxHp;
+      currentPower = power;
+      Robust = 0;
+      CurrentRobust = Robust;
+  }
 
   public void HpChange(int change)
   {

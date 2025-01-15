@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class totalManager 
+public class totalManager : MonoBehaviour 
 {
     // Start is called before the first frame updat
     public GameObject playerObect;
@@ -11,10 +11,28 @@ public class totalManager
     public Enemy enemy;
     public GameObject enemyObject;
 
-    playerTotalCalculator playerTotalCalculator = new playerTotalCalculator();
+    public PlayerHpBar playerHpBar;
+    public EnemyHpBar enemyHpBar;
 
+    public TimeBarHealth timeBarHealth;
+
+    playerTotalCalculator playerTotalCalculator = new playerTotalCalculator();
+    public InGameInputManager inGameInputManager;
+
+    public PendulumMoveController pendulumMoveController;
+
+    void Start()
+    {
+        inGameInputManager.pendulumMoveController = pendulumMoveController;
+        inGameInputManager.totalManager = this;
+
+    }
+   public void timeBarHealthChange(){
+       timeBarHealth.FailDamage();
+   }
     void PlayerHpChange(int change){
         player.HpChange(change);
+        playerHpBar.Damage(-change);
     }
     void PlayerShieldChange(int change){
         player.shieldChange(change);    
@@ -32,6 +50,7 @@ public class totalManager
     }
     void EnemyHpChange(int change){
         enemy.HpChange(change);
+        enemyHpBar.Damage(-change);
     }
 
     void EnemyShieldChange(int change){

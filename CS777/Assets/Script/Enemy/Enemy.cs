@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : IEnemy
+public class Enemy : MonoBehaviour,IEnemy
 {
     // Start is called before the first frame update
     public int maxHp{get; private set;}
@@ -15,7 +15,17 @@ public class Enemy : IEnemy
     public int CurrentPower{get; private set;}
 
     public List<EnemyPattern> EnemyPatternList{get; private set;}
-
+    
+    void Start()
+    {
+        maxHp = 100;
+        power = 0;
+        shield = 0;
+        weakCount = 0;
+        vulnerableCount = 0;
+        currentHp = maxHp;
+        CurrentPower = power;
+    }
     public void HpChange(int change){
 
         currentHp += change;

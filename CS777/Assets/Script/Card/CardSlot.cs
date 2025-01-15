@@ -9,11 +9,13 @@ public class CardSlot :MonoBehaviour
     private int slotNumber;
     private List<GameObject> nodePrefabs;
 
-    private GameObject nodeShownObject;
+    public GameObject nodeShownObject;
 
     
 
     public List<Sprite> NodeSprites;
+
+    public bool isSuccess = false;
 
 
    
@@ -40,7 +42,13 @@ public class CardSlot :MonoBehaviour
             card = null;
             this.gameObject.GetComponent<SpriteRenderer>().sprite = null;
             this.nodeShownObject.GetComponent<SpriteRenderer>().sprite = null;
+            isSuccess = false;
         }
+    }
+    public void SuccessCard()
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().sprite =Resources.Load<Sprite>($"CardSprites/unablecard");
+        isSuccess = true;
     }
 
     public void SetBreak()

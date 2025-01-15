@@ -3,22 +3,46 @@ using System.Collections.Generic;
 using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 using UnityEngine.Windows;
-
-public class InGameInputManager 
+using System;
+public class InGameInputManager :MonoBehaviour
 {
     // Start is called before the first frame update
-    public PendulumMoveController PendulumMoveController { get => pendulumMoveController; set => pendulumMoveController = value; }
-    private PendulumMoveController pendulumMoveController;
+    
+    public PendulumMoveController pendulumMoveController;
     cardEffectCalculator cardKeywordCalculator = new cardEffectCalculator();
     playerTotalCalculator playerTotalCalculator = new playerTotalCalculator();
-
+    public totalManager totalManager;
+  
    private static InGameInputManager instance;
 
    private int totalBreakCount;
 
    
 
-   
+      private void Update()
+    {
+        // 입력 감지 및 GetInput 메서드 호출
+        if (UnityEngine.Input.GetKeyDown(KeyCode.Q))
+        {
+            getInput("Q");
+        }
+        if (UnityEngine.Input.GetKeyDown(KeyCode.W))
+        {
+            getInput("W");
+        }
+        if (UnityEngine.Input.GetKeyDown(KeyCode.E))
+        {
+            getInput("E");
+        }
+        if (UnityEngine.Input.GetKeyDown(KeyCode.R))
+        {
+            getInput("R");
+        }
+        if (UnityEngine.Input.GetKeyDown(KeyCode.T))
+        {
+            getInput("T");
+        }
+    }
 
    private Dictionary<string,int> cardInputDic = new Dictionary<string, int>(){
     {"Q",0},
@@ -40,22 +64,44 @@ public class InGameInputManager
    
    public void getInput(string inputString){
     int index = cardInputDic[inputString];
+    Debug.Log("current count : "+ pendulumMoveController.current_count);
+    pendulumMoveController.resetNode();
     if(!checkSuccess(index)){
-  
+        IfFail(index);
+        totalManager.timeBarHealthChange();
+      
       return;
     }
+    if(DeckManager.Instance.cardSlots[index].isSuccess == false){
+      totalManager.enemyHpBar.Damage(5);
+      DeckManager.Instance.cardSlots[index].SuccessCard();
+      int SuccessCount =0;
+      foreach(var element in DeckManager.Instance.cardSlots){
+       if(element.isSuccess == true){
+           SuccessCount++;
+       }
+
+      }
+      if(SuccessCount == 5){
+          DeckManager.Instance.totalReset();
+          
+      }
+        
+    }
+    
+    
     
 
 
 
 
-
+    Debug.Log("Success:    "  + index);
     
    
    }
 
    public void IfFail(int index){
-    pendulumMoveController.resetNode();
+    
     Debug.Log("Fail:    "  + index);
    }
    public void breakChange(){
@@ -79,7 +125,7 @@ public class InGameInputManager
         return true;
     }
     int cardType = DeckManager.Instance.cardSlots[n].Card.NodeType;
-    float current_count = NodeManager.Instance.current_count;
+    float current_count = pendulumMoveController.current_count;
     if(cardType*25< current_count&& cardType*25>current_count-25){
         return true;
     }

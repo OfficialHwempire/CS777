@@ -11,7 +11,9 @@ public class PendulumMoveController : MonoBehaviour
     [SerializeField]
     private float backgroundWidth = 20f;
 
-    private float current_count =0;
+    public float current_count =0;
+    
+    public float max_count = 100;
 
     private Vector3 originPos = new Vector3(0,0,0);
     
@@ -30,7 +32,7 @@ void Update(){
 }
 void move(){
      pendulum.transform.Translate(Vector3.right * nodeSpeed * Time.deltaTime*nodeDirection);
-    NodeManager.Instance.current_count = ((pendulum.transform.position.x-originPos.x)/backgroundWidth)*NodeManager.Instance.max_count;
+    current_count = ((pendulum.transform.position.x-originPos.x)/backgroundWidth)*max_count;
      
 if(pendulum.transform.position.x - originPos.x >= backgroundWidth)
 {
