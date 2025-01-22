@@ -8,6 +8,7 @@ using UnityEngine;
    public class TimeBarHealth : MonoBehaviour,IGetHealthSystem
 {
     private HealthSystem healthSystem;
+    
 
     private void Awake()
     {
