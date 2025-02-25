@@ -5,14 +5,13 @@ using UnityEngine;
 public class RewardManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<Card> stage1Cards;
+    public List<Card> stage2Cards;
+    public List<Card> stage3Cards;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public List<Relic> stage1relics;
+    public List<Relic> stage2relics;
+
+
+
 }

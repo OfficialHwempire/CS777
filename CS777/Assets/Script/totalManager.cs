@@ -23,8 +23,8 @@ public class totalManager : MonoBehaviour
 
     void Start()
     {
-        inGameInputManager.pendulumMoveController = pendulumMoveController;
-        inGameInputManager.totalManager = this;
+        //inGameInputManager.pendulumMoveController = pendulumMoveController;
+        //inGameInputManager.totalManager = this;
 
     }
    public void timeBarHealthChange(){

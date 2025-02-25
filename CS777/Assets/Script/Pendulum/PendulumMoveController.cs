@@ -6,7 +6,7 @@ using UnityEngine;
 public class PendulumMoveController : MonoBehaviour
 {
     [SerializeField]
-    private float nodeSpeed=5f;
+    public  float nodeSpeed=5f;
     private int nodeDirection=1;
     [SerializeField]
     private float backgroundWidth = 20f;
@@ -49,7 +49,8 @@ else if(pendulum.transform.position.x-originPos.x <=0)
 public void resetNode(){
     pendulum.transform.position = originPos;
     nodeDirection = 1;
-    NodeManager.Instance.current_count = 0;
+    current_count
+            = 0;
 }
 
  
