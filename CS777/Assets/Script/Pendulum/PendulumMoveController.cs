@@ -10,6 +10,7 @@ public class PendulumMoveController : MonoBehaviour
     private int nodeDirection=1;
     [SerializeField]
     private float backgroundWidth = 20f;
+    private SpriteRenderer backGroundSpriteRenderer;
 
     public float current_count =0;
     
@@ -26,6 +27,15 @@ private GameObject pendulum ;
 void Start(){
     pendulum = this.gameObject;
     originPos = pendulum.transform.position;
+    backGroundSpriteRenderer= transform.parent.GetComponent<SpriteRenderer>();
+    if (    backGroundSpriteRenderer != null)
+        {
+            backgroundWidth = backGroundSpriteRenderer.bounds.size.x;
+        }
+        else
+        {
+            Debug.LogError("Background SpriteRenderer not found!");
+        }
 }
 void Update(){
     move();

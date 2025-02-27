@@ -12,6 +12,8 @@ public class RewardManager : MonoBehaviour
     public List<Relic> stage1relics;
     public List<Relic> stage2relics;
 
+    public List<Relic> stage3relics;
+
 
 
 }

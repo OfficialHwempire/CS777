@@ -28,7 +28,7 @@ public class InGameCard
 
     public Sprite LoadCardSprite(string cardName)
     {
-        // 카드 이름에 따라 스프라이트를 Resources 폴더에서 불러옵니다.
+        
         return Resources.Load<Sprite>($"CardSprites/{cardName}");
     }
 
